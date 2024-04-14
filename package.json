@@ -20,6 +20,7 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "nanoid": "^5.0.7",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
@@ -55,5 +56,6 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  }
+  },
+  "types": "index.d.ts"
 }

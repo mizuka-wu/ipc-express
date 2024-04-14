@@ -1,5 +1,5 @@
 import { IpcRenderer } from 'electron';
-import { v4 as uuid } from 'uuid';
+import { nanoid } from 'nanoid';
 
 import { Method } from '../types';
 
@@ -31,7 +31,7 @@ export class IpcClient {
   buildRequestHandler(method: Method): (path: string, body: any) => Promise<any> {
     return (path: string, body = {} as any) => {
       return new Promise((resolve, reject) => {
-        const responseId = uuid();
+        const responseId = nanoid();
         this.send({
           method,
           path,
