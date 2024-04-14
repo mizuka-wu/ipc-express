@@ -15,7 +15,7 @@ npm i @mizuka-wu/ipc-express
 ```js
 const { ipcMain } = require('electron');
 const express = require('express');
-const { IpcServer } = require('ipc-express');
+const { IpcServer } = require('@mizuka-wu/ipc-express');
 
 const expressApp = express();
 const ipc = new IpcServer(ipcMain);
@@ -39,7 +39,7 @@ ipc.listen(expressApp);
 ### In your frontend framework
 
 ```js
-import { IpcClient } from 'ipc-express';
+import { IpcClient } from '@mizuka-wu/ipc-express';
 const { ipcRenderer } = window.require('electron');
 
 const ipc = new IpcClient(ipcRenderer);
