@@ -1,4 +1,4 @@
-declare module IpcExpress {
+declare namespace IpcExpress {
   class IpcClient {
     constructor(ipcRenderer: any);
     get: (path: string, body: any) => Promise<any>;
