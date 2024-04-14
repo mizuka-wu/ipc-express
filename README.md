@@ -5,8 +5,9 @@ This library enables you to use the express framework in the mainthread of elect
 ## Usage
 
 ### Installation
+
 ```bash
-npm i ipc-express
+npm i @mizuka-wu/ipc-express
 ```
 
 ### in your main.js file
@@ -55,6 +56,7 @@ const ipc = new IpcClient(ipcRenderer);
 
 An example can be found in the `example-app` folder.
 To start the example-app:
+
 ```bash
 cd example-app
 npm run start:main
@@ -62,14 +64,16 @@ npm run start:renderer
 ```
 
 ## contribute
+
 * fork this repo
-* `npm i` 
+* `npm i`
 * make changes on new branch
 * update README
 * submit PR
 
 # Todo
-- [ ] extend the response object to an more express-like one
+
+* [ ] extend the response object to an more express-like one
 
 ## License
 
