@@ -1,6 +1,6 @@
 import { IpcMain, IpcRenderer } from 'electron';
 
-declare module 'ipc-express' {
+declare module '@mizuka-wu/ipc-express' {
   export type Method = 'get' | 'post' | 'put' | 'patch' | 'delete';
 
   export class IpcClient {
