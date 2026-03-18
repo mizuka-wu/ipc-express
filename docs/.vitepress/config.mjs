@@ -5,6 +5,7 @@ export default defineConfig({
   description: 'Express-like IPC communication for Electron',
   lang: 'zh-CN',
   lastUpdated: true,
+  base: '/ipc-express/',
 
   themeConfig: {
     logo: '/logo.svg',
