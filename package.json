@@ -58,6 +58,11 @@
     "express"
   ],
   "license": "MIT",
+  "files": [
+    "build",
+    "index.d.ts",
+    "README.md"
+  ],
   "dependencies": {
     "nanoid": "^5.0.7",
     "uuid": "^9.0.1"

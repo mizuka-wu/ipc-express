@@ -5,23 +5,28 @@
 ## 快速导航
 
 ### 🚀 开始使用
+
 - [快速开始](/guide/getting-started.md) - 5 分钟快速上手
 - [安装指南](/guide/installation.md) - 详细的安装步骤
 
 ### 📖 学习资源
+
 - [架构设计](/guide/architecture.md) - 了解 ipc-express 的设计原理
 - [最佳实践](/guide/best-practices.md) - 编写高质量代码的建议
 
 ### 🔧 API 文档
+
 - [IpcClient API](/api/client.md) - 客户端 API 参考
 - [IpcServer API](/api/server.md) - 服务器 API 参考
 - [类型定义](/api/types.md) - TypeScript 类型参考
 
 ### 💡 示例代码
+
 - [基础示例](/examples/basic.md) - 完整的 Todo 应用示例
 - [高级用法](/examples/advanced.md) - 认证、数据库、文件上传等
 
 ### 📊 项目分析
+
 - [项目分析](/analysis.md) - 项目架构和改进方向
 
 ## 主要特性
@@ -53,7 +58,7 @@ npm install @mizuka-wu/ipc-express
 ```typescript
 import { ipcMain } from 'electron';
 import express from 'express';
-import { IpcServer } from '@mizuka-wu/ipc-express';
+import { IpcServer } from '@mizuka-wu/ipc-express/server';
 
 const app = express();
 const ipcServer = new IpcServer(ipcMain);
@@ -69,7 +74,7 @@ ipcServer.listen(app);
 
 ```typescript
 import { ipcRenderer } from 'electron';
-import { IpcClient } from '@mizuka-wu/ipc-express';
+import { IpcClient } from '@mizuka-wu/ipc-express/client';
 
 const client = new IpcClient(ipcRenderer);
 

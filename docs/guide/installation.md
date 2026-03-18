@@ -56,7 +56,8 @@ npm install --save-dev \
 安装后，你可以验证安装是否成功：
 
 ```typescript
-import { IpcClient, IpcServer } from '@mizuka-wu/ipc-express';
+import { IpcClient } from '@mizuka-wu/ipc-express/client';
+import { IpcServer } from '@mizuka-wu/ipc-express/server';
 
 console.log('ipc-express installed successfully!');
 ```
@@ -68,10 +69,34 @@ ipc-express 支持两种模块格式：
 ### CommonJS
 
 ```javascript
-const { IpcClient, IpcServer } = require('@mizuka-wu/ipc-express');
+const { IpcClient } = require('@mizuka-wu/ipc-express/client');
+const { IpcServer } = require('@mizuka-wu/ipc-express/server');
 ```
 
 ### ES Modules
+
+```typescript
+import { IpcClient } from '@mizuka-wu/ipc-express/client';
+import { IpcServer } from '@mizuka-wu/ipc-express/server';
+```
+
+## 分离入口
+
+为了避免在渲染进程中加载不必要的服务器代码（反之亦然），ipc-express 提供了分离的入口点：
+
+### 主进程（仅加载服务器代码）
+
+```typescript
+import { IpcServer } from '@mizuka-wu/ipc-express/server';
+```
+
+### 渲染进程（仅加载客户端代码）
+
+```typescript
+import { IpcClient } from '@mizuka-wu/ipc-express/client';
+```
+
+### 两者都需要（加载完整库）
 
 ```typescript
 import { IpcClient, IpcServer } from '@mizuka-wu/ipc-express';

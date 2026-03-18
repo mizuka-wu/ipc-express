@@ -130,7 +130,7 @@ app.on('before-quit', () => {
 ```typescript
 // renderer.ts
 import { ipcRenderer } from 'electron';
-import { IpcClient } from '@mizuka-wu/ipc-express';
+import { IpcClient } from '@mizuka-wu/ipc-express/client';
 
 interface Todo {
   id: number;
