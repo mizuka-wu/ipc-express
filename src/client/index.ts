@@ -1,8 +1,11 @@
 import { IpcRenderer } from 'electron';
-import { nanoid } from 'nanoid';
 
-import { Method } from '../types';
 import { IResponseObject } from '../interfaces';
+import { Method } from '../types';
+
+function generateId(): string {
+  return Math.random().toString(36).substring(2, 11) + Math.random().toString(36).substring(2, 11);
+}
 
 interface SendData {
   method: Method;
@@ -16,7 +19,7 @@ export class IpcClient {
   private ipcRenderer: IpcRenderer;
   private methods: Method[];
 
-  constructor(ipcRenderer: IpcRenderer, namespace: string = 'api-request') {
+  constructor(ipcRenderer: IpcRenderer, namespace = 'api-request') {
     this.ipcRenderer = ipcRenderer;
     this.namespace = namespace;
     this.methods = ['get', 'post', 'put', 'patch', 'delete'];
@@ -52,7 +55,7 @@ export class IpcClient {
   private buildRequestHandler(method: Method): <T = any>(path: string, body?: any) => Promise<IResponseObject<T>> {
     return <T = any>(path: string, body?: any): Promise<IResponseObject<T>> => {
       return new Promise((resolve, reject) => {
-        const responseId = nanoid();
+        const responseId = generateId();
         this.send({
           method,
           path,
