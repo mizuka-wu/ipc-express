@@ -64,10 +64,23 @@ export class IpcClient {
         });
 
         this.ipcRenderer.on(responseId, (_: any, result: IResponseObject<T>) => {
-          if (result.statusCode >= 200 && result.statusCode < 300) {
-            resolve(result);
+          // 处理 Buffer 类型的 data（Electron IPC 序列化保留的 Buffer）
+          let data = result.data;
+          if (data && (data instanceof Uint8Array || Buffer.isBuffer(data))) {
+            const str = Buffer.from(data).toString('utf-8');
+            try {
+              data = JSON.parse(str) as T;
+            } catch {
+              data = str as unknown as T; // 如果不是 JSON，保留字符串
+            }
+          }
+
+          const processedResult = { ...result, data } as IResponseObject<T>;
+
+          if (processedResult.statusCode >= 200 && processedResult.statusCode < 300) {
+            resolve(processedResult);
           } else {
-            reject(result);
+            reject(processedResult);
           }
         });
       });

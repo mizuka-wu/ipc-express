@@ -18,10 +18,16 @@ export class IpcServer {
       const res = new CustomResponse(originalEvent, responseId);
 
       try {
-        expressApp(req, res);
+        const result = expressApp(req, res);
+        // 如果 expressApp 返回 Promise，等待它
+        if (result && typeof result.then === 'function') {
+          await result;
+        }
       } catch (error) {
         console.error('IPC Server error:', error);
-        res.status(500).send({ error: 'Internal Server Error' });
+        if (!res.headersSent) {
+          res.status(500).send({ error: 'Internal Server Error' });
+        }
       }
     });
   }
