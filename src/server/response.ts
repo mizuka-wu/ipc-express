@@ -6,10 +6,9 @@ export default class Response {
   private originalEvent: IpcMainEvent;
   private responseId: string;
   private statusCode: number;
-  private headers: Record<string, string>;
+  public headers: Record<string, string>;
   private sent: boolean;
   public locals: Record<string, any>;
-  public headersSent: boolean;
 
   constructor(originalEvent: IpcMainEvent, responseId: string) {
     this.originalEvent = originalEvent;
@@ -17,7 +16,6 @@ export default class Response {
     this.statusCode = 200;
     this.headers = {};
     this.sent = false;
-    this.headersSent = false;
     this.locals = {};
   }
 
@@ -32,14 +30,6 @@ export default class Response {
     return this.headers[key];
   }
 
-  get(key: string): string | undefined {
-    return this.getHeader(key);
-  }
-
-  has(key: string): boolean {
-    return key in this.headers;
-  }
-
   removeHeader(key: string): this {
     delete this.headers[key];
     return this;
@@ -50,7 +40,6 @@ export default class Response {
       return this;
     }
     this.sent = true;
-    this.headersSent = true;
     this.originalEvent.sender.send(this.responseId, this.getResponseObject(result));
     return this;
   }
@@ -63,13 +52,6 @@ export default class Response {
   json<T = any>(result: T): this {
     this.setHeader('Content-Type', 'application/json');
     this.send(result);
-    return this;
-  }
-
-  end(): this {
-    if (!this.sent) {
-      this.send({});
-    }
     return this;
   }
 
