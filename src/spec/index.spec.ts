@@ -6,9 +6,9 @@ import { IpcServer } from '../server';
 import { ipcRenderer, ipcMain } from './mock/electron-mock';
 
 describe('ipc-express', () => {
-  let ipcC;
-  let ipcS;
-  let expressApp;
+  let ipcC: IpcClient;
+  let ipcS: IpcServer;
+  let expressApp: any;
   beforeEach(() => {
     const cloneIpcRenderer = Object.assign(Object.create(Object.getPrototypeOf(ipcRenderer)), ipcRenderer);
     const cloneipcMain = Object.assign(Object.create(Object.getPrototypeOf(ipcMain)), ipcMain);
@@ -26,7 +26,7 @@ describe('ipc-express', () => {
 
   describe('Params', () => {
     beforeEach(() => {
-      expressApp.use('/test/:id', (req, res) => {
+      expressApp.use('/test/:id', (req: any, res: any) => {
         res.send({
           params: req.params,
         });
@@ -40,7 +40,7 @@ describe('ipc-express', () => {
 
   describe('Query', () => {
     beforeEach(() => {
-      expressApp.use('/test', (req, res) => {
+      expressApp.use('/test', (req: any, res: any) => {
         res.send({
           query: req.query,
         });
@@ -56,7 +56,7 @@ describe('ipc-express', () => {
 
   describe('given long calculating response', () => {
     beforeEach(() => {
-      expressApp.use('/test', (_, res) => {
+      expressApp.use('/test', (_: any, res: any) => {
         setTimeout(() => {
           res.send({
             long: true,

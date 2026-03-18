@@ -1,35 +1,34 @@
+import { IpcMainEvent } from 'electron';
 import { IResponseObject } from '../interfaces';
 
 export default class Response {
-  private originalEvent: any;
+  private originalEvent: IpcMainEvent;
   private responseId: string;
   private statusCode: number;
-  setHeader: () => void;
-  send: (result) => void;
-  private getResponseObject: (result) => IResponseObject;
-  private status: (code: number) => this;
 
-  constructor(originalEvent, responseId: string) {
+  constructor(originalEvent: IpcMainEvent, responseId: string) {
     this.originalEvent = originalEvent;
     this.responseId = responseId;
     this.statusCode = 200;
+  }
 
-    this.setHeader = () => this;
+  setHeader(key: string, value: string): this {
+    return this;
+  }
 
-    this.send = (result) => {
-      this.originalEvent.sender.send(this.responseId, this.getResponseObject(result));
-    };
+  send<T = any>(result: T): void {
+    this.originalEvent.sender.send(this.responseId, this.getResponseObject(result));
+  }
 
-    this.getResponseObject = (result) => ({
+  status(code: number): this {
+    this.statusCode = code;
+    return this;
+  }
+
+  private getResponseObject<T = any>(result: T): IResponseObject<T> {
+    return {
       data: result,
       statusCode: this.statusCode,
-    });
-
-    this.status = (code: number) => {
-      this.statusCode = code;
-      return this;
     };
-
-    return this;
   }
 }
