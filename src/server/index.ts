@@ -11,11 +11,35 @@ export class IpcServer {
     this.namespace = '';
   }
 
-  listen(expressApp: any, namespace: string = 'api-request'): void {
+  listen(expressApp: any, namespace = 'api-request'): void {
     this.namespace = namespace;
     this.ipcMain.on(this.namespace, async (originalEvent: IpcMainEvent, { method, path, body, responseId }: any) => {
-      expressApp({ method, body, url: path }, new CustomResponse(originalEvent, responseId));
+      const req = this.createRequest(method, path, body);
+      const res = new CustomResponse(originalEvent, responseId);
+
+      try {
+        expressApp(req, res);
+      } catch (error) {
+        console.error('IPC Server error:', error);
+        res.status(500).send({ error: 'Internal Server Error' });
+      }
     });
+  }
+
+  private createRequest(method: string, path: string, body: any): any {
+    const url = new URL(`http://localhost${path}`);
+    return {
+      method: method.toUpperCase(),
+      url: path,
+      path: url.pathname,
+      query: Object.fromEntries(url.searchParams),
+      body,
+      params: {},
+      headers: {},
+      get(key: string) {
+        return this.headers[key.toLowerCase()];
+      },
+    };
   }
 
   removeAllListeners(): void {
