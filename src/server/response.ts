@@ -8,6 +8,7 @@ export default class Response {
   private statusCode: number;
   private headers: Record<string, string>;
   private sent: boolean;
+  public locals: Record<string, any>;
 
   constructor(originalEvent: IpcMainEvent, responseId: string) {
     this.originalEvent = originalEvent;
@@ -15,6 +16,7 @@ export default class Response {
     this.statusCode = 200;
     this.headers = {};
     this.sent = false;
+    this.locals = {};
   }
 
   setHeader(key: string, value: string): this {
@@ -33,12 +35,13 @@ export default class Response {
     return this;
   }
 
-  send<T = any>(result: T): void {
+  send<T = any>(result: T): this {
     if (this.sent) {
-      return;
+      return this;
     }
     this.sent = true;
     this.originalEvent.sender.send(this.responseId, this.getResponseObject(result));
+    return this;
   }
 
   status(code: number): this {
@@ -46,9 +49,17 @@ export default class Response {
     return this;
   }
 
-  json<T = any>(result: T): void {
+  json<T = any>(result: T): this {
     this.setHeader('Content-Type', 'application/json');
     this.send(result);
+    return this;
+  }
+
+  end(): this {
+    if (!this.sent) {
+      this.send({});
+    }
+    return this;
   }
 
   private getResponseObject<T = any>(result: T): IResponseObject<T> {
