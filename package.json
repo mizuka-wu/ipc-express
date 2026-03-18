@@ -67,14 +67,8 @@
   },
   "lint-staged": {
     "src/**/*.{js,ts}": [
-      "eslint . --fix",
-      "prettier --write",
-      "git add"
+      "eslint --fix",
+      "prettier --write"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   }
 }
