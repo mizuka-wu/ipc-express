@@ -15,7 +15,7 @@ npm install @mizuka-wu/ipc-express
 ```typescript
 import { ipcMain } from 'electron';
 import express from 'express';
-import { IpcServer } from '@mizuka-wu/ipc-express';
+import { IpcServer } from '@mizuka-wu/ipc-express/server';
 
 const app = express();
 const ipcServer = new IpcServer(ipcMain);
@@ -51,7 +51,7 @@ ipcServer.listen(app);
 
 ```typescript
 import { ipcRenderer } from 'electron';
-import { IpcClient } from '@mizuka-wu/ipc-express';
+import { IpcClient } from '@mizuka-wu/ipc-express/client';
 
 const ipcClient = new IpcClient(ipcRenderer);
 
@@ -114,10 +114,12 @@ console.log(response.data.name); // 类型安全
 
 ```typescript
 // 主进程
+import { IpcServer } from '@mizuka-wu/ipc-express/server';
 const ipcServer = new IpcServer(ipcMain);
 ipcServer.listen(app, 'custom-namespace');
 
 // 渲染进程
+import { IpcClient } from '@mizuka-wu/ipc-express/client';
 const ipcClient = new IpcClient(ipcRenderer, 'custom-namespace');
 ```
 

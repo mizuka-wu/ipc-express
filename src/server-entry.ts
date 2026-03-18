@@ -1,0 +1,1 @@
+export { IpcServer } from './server';

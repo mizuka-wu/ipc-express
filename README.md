@@ -30,7 +30,7 @@ pnpm add @mizuka-wu/ipc-express
 ```typescript
 import { ipcMain } from 'electron';
 import express from 'express';
-import { IpcServer } from '@mizuka-wu/ipc-express';
+import { IpcServer } from '@mizuka-wu/ipc-express/server';
 
 const app = express();
 const ipcServer = new IpcServer(ipcMain);
@@ -49,7 +49,7 @@ ipcServer.listen(app);
 
 ```typescript
 import { ipcRenderer } from 'electron';
-import { IpcClient } from '@mizuka-wu/ipc-express';
+import { IpcClient } from '@mizuka-wu/ipc-express/client';
 
 interface User {
   id: string;
@@ -103,7 +103,7 @@ pnpm add @mizuka-wu/ipc-express
 ```typescript
 import { ipcMain } from 'electron';
 import express from 'express';
-import { IpcServer } from '@mizuka-wu/ipc-express';
+import { IpcServer } from '@mizuka-wu/ipc-express/server';
 
 const app = express();
 const ipcServer = new IpcServer(ipcMain);
@@ -122,7 +122,7 @@ ipcServer.listen(app);
 
 ```typescript
 import { ipcRenderer } from 'electron';
-import { IpcClient } from '@mizuka-wu/ipc-express';
+import { IpcClient } from '@mizuka-wu/ipc-express/client';
 
 interface User {
   id: string;

@@ -20,6 +20,26 @@
         "types": "./build/esm/index.d.ts",
         "default": "./build/esm/index.js"
       }
+    },
+    "./client": {
+      "require": {
+        "types": "./build/cjs/client/index.d.ts",
+        "default": "./build/cjs/client/index.js"
+      },
+      "import": {
+        "types": "./build/esm/client/index.d.ts",
+        "default": "./build/esm/client/index.js"
+      }
+    },
+    "./server": {
+      "require": {
+        "types": "./build/cjs/server/index.d.ts",
+        "default": "./build/cjs/server/index.js"
+      },
+      "import": {
+        "types": "./build/esm/server/index.d.ts",
+        "default": "./build/esm/server/index.js"
+      }
     }
   },
   "scripts": {
